@@ -76,8 +76,10 @@ def list_supported_languages():
     """Print a formatted list of supported languages."""
     print("\nSupported Languages:")
     print("-------------------")
+    max_code_length = max(len(code) for code in SUPPORTED_LANGUAGES.keys())
     for code, name in sorted(SUPPORTED_LANGUAGES.items()):
-        print(f"{code}: {name}")
+        print(f"{code.ljust(max_code_length)} : {name}")
+    print()
 
 
 def validate_output_file(output_path: str):
@@ -93,14 +95,14 @@ def validate_output_file(output_path: str):
 
 def main():
     parser = argparse.ArgumentParser(description='Convert text file to speech in multiple languages')
-    parser.add_argument('--input-file', '-i', required=True,
-                        help='Path to input text file (.txt)')
-    parser.add_argument('--output-file', '-o', required=True,
-                        help='Path to output audio file (.mp3)')
+    parser.add_argument('--input-file', '-i',
+                      help='Path to input text file (.txt)')
+    parser.add_argument('--output-file', '-o',
+                      help='Path to output audio file (.mp3)')
     parser.add_argument('--language', '-l', default='es',
-                        help='Language code (e.g., es, en, fr). Use --list-languages to see all options')
+                      help='Language code (e.g., es, en, fr). Use --list-languages to see all options')
     parser.add_argument('--list-languages', action='store_true',
-                        help='List all supported languages and their codes')
+                      help='List all supported languages and their codes')
 
     args = parser.parse_args()
 
@@ -108,6 +110,10 @@ def main():
     if args.list_languages:
         list_supported_languages()
         return
+
+    # Verify required arguments when not listing languages
+    if not args.input_file or not args.output_file:
+        parser.error("--input-file and --output-file are required unless --list-languages is used")
 
     try:
         # Validate input file

@@ -174,3 +174,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 For bug reports and feature requests, please use the [GitHub Issues](https://github.com/tomdwor/text-to-speech/issues) page.
+
+## Blog article
+
+[Building a Multilingual Text-to-Speech Tool with Python and gTTS - Tomasz Dworakowski Blog](https://www.tdworakowski.com/2024/11/building-multilingual-text-to-speech.html)
